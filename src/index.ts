@@ -5,8 +5,8 @@ enum METHOD {
   delete = 'DELETE',
 }
 
-export default class APIManager {
-  static shared: APIManager = new APIManager();
+export default class RapiManager {
+  static shared: RapiManager = new RapiManager();
   urlbase = process.env.URL_BASE || 'https://dev.pimi.tech';
   token = '';
 
@@ -28,9 +28,14 @@ export default class APIManager {
     return this.request(uri, METHOD.post, body).then((response) => response.json());
   }
 
-  delete<T>(path: string, body: any): Promise<IRequest<T>> {
+  put<T>(path: string, body: any): Promise<IRequest<T>> {
     const uri = `${this.urlbase}${path}`;
-    return this.request(uri, METHOD.delete, body).then((response) => response.json());
+    return this.request(uri, METHOD.post, body).then((response) => response.json());
+  }
+
+  delete<T>(path: string): Promise<IRequest<T>> {
+    const uri = `${this.urlbase}${path}`;
+    return this.request(uri, METHOD.delete).then((response) => response.json());
   }
 
   private async request(uri: string, method: METHOD, body: any = null) {
