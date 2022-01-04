@@ -1,4 +1,4 @@
-## RapiManager v1.0.0
+## RapiManager
 
 connect with your api rest faster! Json and interface!. 
 
