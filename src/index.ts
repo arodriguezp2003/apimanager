@@ -5,10 +5,14 @@ enum METHOD {
   delete = 'DELETE',
 }
 
-export default class RapiManager {
-  static shared: RapiManager = new RapiManager();
+export default class ApiManager {
+  static shared: ApiManager = new ApiManager();
   urlbase = process.env.URL_BASE || 'https://dev.pimi.tech';
   token = '';
+
+  setUrlBase(url: string) {
+    this.urlbase = url;
+  }
 
   setToken(token: string) {
     this.token = token;
