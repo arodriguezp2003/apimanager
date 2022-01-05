@@ -11,31 +11,42 @@ URL_BASE = 'https://yourapi.com/v1';
 ApiManager.shared.setUrlBase("https://yourapi.com/v1")
 ```
 
-### Backend Interface
+### Configure your Response Interface
+We will use this example interface, it is the response that the backend delivers for each request
 
 ```javascript
-export interface IRequest<T> {
+export interface IResponse<T> {
   statusCode: number;
   message?: string;
   payload: T;
 }
 ```
-### Authorization Bearer
+### Headers 
 ```javascript
+//add new header 
+ApiManager.shared.setHeader("x-custom-headers", "123456")
+
+//remove header
+ApiManager.shared.removeHeader("x-custom-headers")
+```
+### Authorization Bearer
+this feature is preconfigured, you should only set the token.
+```javascript**
 
 //interface from your backend
 interface AccessToken {
   token: string;
 }
 
-const req = await ApiManager.shared.post<AccessToken>('/auth/login', {
+const req = await ApiManager.shared.post<IResponse<AccessToken>>('/auth/login', {
   email: 'a@a,cl',
   password: 123123
 });
 
 if(req.statusCode === 200) {
-  // now the new request implement bearer token whit this token!.
-   ApiManager.shared.setToken(req.payload.token);
+   ApiManager.shared.setTokenAuthBearer(req.payload.token);
+} else {
+   ApiManager.shared.removeTokenAuthBearer()
 }
 
 ```
@@ -45,13 +56,13 @@ if(req.statusCode === 200) {
 export interface Client {
   name: string;
 }
-const req = await ApiManager.shared.get<IClient>('/clients');
+const req = await ApiManager.shared.get<IResponse<IClient>>('/clients');
 if(req.statusCode === 200) {
   //IClient payload
   console.log(req.payload.name)
 } else {
   //error message
-  console.log(req.error)
+  console.log(req.message)
 }
 ```
 
@@ -65,7 +76,7 @@ export interface IClient {
 const data: IClient = {
   name: 'Alejandro Rodriguez',
 };
-const req = await ApiManager.shared.post<IClient>('/clients', data);
+const req = await ApiManager.shared.post<IResponse<IClient>>('/clients', data);
 ```
 
 ### PUT
@@ -78,11 +89,24 @@ export interface IClient {
 const data: IClient = {
   name: 'Alejandro Rodriguez',
 };
-const req =  await ApiManager.shared.update <IClient>('/clients', data);
+const req =  await ApiManager.shared.put <IResponse<IClient>>('/clients/1', data);
+```
+
+### PATH
+
+```javascript
+export interface IClient {
+  name: string;
+}
+
+const data: IClient = {
+  name: 'Alejandro Rodriguez',
+};
+const req =  await ApiManager.shared.path <IResponse<IClient>>('/clients/1', data);
 ```
 
 ### Delete
 
 ```javascript
-const req = await ApiManager.shared.delete<any>('/clients/1');
+const req = await ApiManager.shared.delete<IResponse<any>>('/clients/1');
 ```
