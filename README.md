@@ -9,7 +9,7 @@ connect with your api rest faster! Json and interface!.
 // Env variables
 URL_BASE = 'https://yourapi.com/v1';
 //or
-ApiManager.shared.setUrlBase("https://yourapi.com/v1")
+RapiManager.shared.setUrlBase("https://yourapi.com/v1")
 ```
 
 ### Configure your Response Interface
@@ -25,10 +25,10 @@ export interface IResponse<T> {
 ### Headers 
 ```javascript
 //add new header 
-ApiManager.shared.setHeader("x-custom-headers", "123456")
+RapiManager.shared.setHeader("x-custom-headers", "123456")
 
 //remove header
-ApiManager.shared.removeHeader("x-custom-headers")
+RapiManager.shared.removeHeader("x-custom-headers")
 ```
 ### Authorization Bearer
 this feature is preconfigured, you should only set the token.
@@ -37,15 +37,15 @@ interface PayloadAuth {
   token: string;
 }
 
-const req = await ApiManager.shared.post<IResponse<PayloadAuth>>('/auth/login', {
+const req = await RapiManager.shared.post<IResponse<PayloadAuth>>('/auth/login', {
   email: 'a@a,cl',
   password: 123123
 });
 
 if(req.statusCode === 200) {
-   ApiManager.shared.setTokenAuthBearer(req.payload.token);
+   RapiManager.shared.setTokenAuthBearer(req.payload.token);
 } else {
-   ApiManager.shared.removeTokenAuthBearer()
+   RapiManager.shared.removeTokenAuthBearer()
 }
 
 ```
@@ -55,7 +55,7 @@ if(req.statusCode === 200) {
 export interface Client {
   name: string;
 }
-const req = await ApiManager.shared.get<IResponse<IClient>>('/clients');
+const req = await RapiManager.shared.get<IResponse<IClient>>('/clients');
 if(req.statusCode === 200) {
   //IClient payload
   console.log(req.payload.name)
@@ -75,7 +75,7 @@ export interface IClient {
 const data: IClient = {
   name: 'Alejandro Rodriguez',
 };
-const req = await ApiManager.shared.post<IResponse<IClient>>('/clients', data);
+const req = await RapiManager.shared.post<IResponse<IClient>>('/clients', data);
 
 if(req.statusCode === 200) {
   //IClient payload
@@ -97,7 +97,7 @@ export interface IClient {
 const data: IClient = {
   name: 'Alejandro Rodriguez',
 };
-const req =  await ApiManager.shared.put <IResponse<IClient>>('/clients/1', data);
+const req =  await RapiManager.shared.put <IResponse<IClient>>('/clients/1', data);
 
 if(req.statusCode === 200) {
   //IClient payload
@@ -118,7 +118,7 @@ export interface IClient {
 const data: IClient = {
   name: 'Alejandro Rodriguez',
 };
-const req =  await ApiManager.shared.path <IResponse<IClient>>('/clients/1', data);
+const req =  await RapiManager.shared.path <IResponse<IClient>>('/clients/1', data);
 
 if(req.statusCode === 200) {
   //IClient payload
@@ -132,7 +132,7 @@ if(req.statusCode === 200) {
 ### Delete
 
 ```javascript
-const req = await ApiManager.shared.delete<IResponse<any>>('/clients/1');
+const req = await RapiManager.shared.delete<IResponse<any>>('/clients/1');
 if(req.statusCode === 200) {
   //delete register
   console.log(req.message)
