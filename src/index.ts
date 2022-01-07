@@ -10,7 +10,7 @@ export default class RapiManager {
   static shared: RapiManager = new RapiManager();
   urlbase = process.env.URL_BASE || 'https://dev.pimi.tech';
   token = '';
-  headers = new Headers();
+  headers: { [x: string]: string } = {};
 
   setUrlBase(url: string) {
     this.urlbase = url;
@@ -24,11 +24,11 @@ export default class RapiManager {
   }
 
   setHeader(name: string, value: string) {
-    this.headers.set(name, value);
+    this.headers[name] = value;
   }
 
   removeHeader(name: string) {
-    this.headers.delete(name);
+    delete this.headers[name];
   }
 
   async get<T>(path: string): Promise<T> {
@@ -67,7 +67,7 @@ export default class RapiManager {
       Authorization: token,
       'Content-Type': 'application/json',
     };
-    this.headers.forEach((key, value) => (header[key] = value));
+    // this.headers.forEach((key, value) => (header[key] = value));
     return header;
   }
 }

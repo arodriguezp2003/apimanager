@@ -1,16 +1,17 @@
 {
   "name": "rapimanager",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Api Manager Singleton for Request",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "jest --config jestconfig.json",
+    "test:coverage": "jest --config jestconfig.json --coverage",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
     "prepare": "npm run build",
-    "prepublishOnly": "npm run lint",
+    "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "git add -A src",
     "postversion": "git push && git push --tags"
@@ -28,11 +29,20 @@
     "apimanager",
     "manager"
   ],
-  "author": "",
+  "author": "arodriguez",
   "license": "ISC",
+  "jest": {
+    "automock": false,
+    "setupFiles": [
+      "./setupJest.js"
+    ]
+  },
   "devDependencies": {
+    "@types/jest": "^27.4.0",
     "@types/node": "^17.0.7",
+    "jest": "^27.4.7",
     "prettier": "^2.5.1",
+    "ts-jest": "^27.1.2",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.5.4"
