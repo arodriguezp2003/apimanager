@@ -1,5 +1,5 @@
 {
-  "name": "rapimanager",
+  "name": "japimanager",
   "version": "1.0.0",
   "description": "Api Manager with generics",
   "main": "lib/index.js",

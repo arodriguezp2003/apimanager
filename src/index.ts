@@ -6,8 +6,8 @@ enum METHOD {
   delete = 'DELETE',
 }
 
-export default class RapiManager {
-  static shared: RapiManager = new RapiManager();
+export default class JapiManager {
+  static shared: JapiManager = new JapiManager();
   urlbase = process.env.URL_BASE || 'https://dev.pimi.tech';
   token = '';
   headers: { [x: string]: string } = {};
