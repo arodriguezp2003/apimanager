@@ -31,36 +31,34 @@ test('removeTokenAuthBearer', async () => {
 });
 
 test('set header', async () => {
-  RapiManager.shared.setHeader('arp', '123');
-  for (let p in RapiManager.shared.headers) {
-    expect(RapiManager.shared.headers[p]).toBe('123');
-  }
+  const key = 'arp';
+  RapiManager.shared.setHeader(key, '123');
+  expect(RapiManager.shared.headers[key]).toBe('123');
 });
 
 test('remove header', async () => {
-  RapiManager.shared.setHeader('arp', '123');
-  RapiManager.shared.removeHeader('arp');
-  for (let p in RapiManager.shared.headers) {
-    expect(RapiManager.shared.headers[p]).toBe('123');
-  }
+  const key = 'arp';
+  RapiManager.shared.setHeader(key, '123');
+  RapiManager.shared.removeHeader(key);
+  expect(RapiManager.shared.headers[key]).toBe(undefined);
 });
 
 test('GET method', async () => {
-  let req = await RapiManager.shared.get<{ test: number }>('client');
+  const req = await RapiManager.shared.get<{ test: number }>('client');
   expect(req.test).toBe(100);
 });
 
 test('POST method', async () => {
-  let req = await RapiManager.shared.post<{ test: number }>('client', {});
+  const req = await RapiManager.shared.post<{ test: number }>('client', {});
   expect(req.test).toBe(100);
 });
 
 test('PUT method', async () => {
-  let req = await RapiManager.shared.put<{ test: number }>('client/1', {});
+  const req = await RapiManager.shared.put<{ test: number }>('client/1', {});
   expect(req.test).toBe(100);
 });
 
 test('DELETE method', async () => {
-  let req = await RapiManager.shared.delete<{ test: number }>('client/1');
+  const req = await RapiManager.shared.delete<{ test: number }>('client/1');
   expect(req.test).toBe(100);
 });
