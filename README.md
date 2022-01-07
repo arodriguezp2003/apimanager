@@ -1,3 +1,4 @@
+[![Node.js Package](https://github.com/arodriguezp2003/apimanager/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/arodriguezp2003/apimanager/actions/workflows/npm-publish.yml)
 ## RapiManager
 
 connect with your api rest faster! Json and interface!. 
